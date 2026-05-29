@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>MyCivicHub</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Optional small CSS (create static/style.css) -->
+        <link rel="stylesheet" href="/static/style.css" />
+    </head>
+    <body class="bg-gray-100 min-h-screen">
+        <!-- Login Modal -->
+        <div
+            id="loginModal"
+            class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="loginTitle"
+        >
+            <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-sm">
+                <h3 id="loginTitle" class="text-lg font-semibold mb-3">
+                    Enter Your Username
+                </h3>
+
+                <label for="usernameInput" class="sr-only">Username</label>
+                <input
+                    type="text"
+                    id="usernameInput"
+                    placeholder="Username"
+                    autofocus
+                    class="w-full border rounded px-3 py-2 mb-3"
+                />
+
+                <div class="flex justify-end">
+                    <button
+                        id="loginBtn"
+                        class="px-4 py-2 rounded bg-blue-600 text-white"
+                        aria-label="Login"
+                    >
+                        Login
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <header
+            class="bg-white shadow px-6 py-3 flex justify-between items-center"
+        >
+            <h1 class="text-xl font-bold text-blue-700">🌐 MyCivicHub</h1>
+
+            <nav
+                class="space-x-6 text-sm font-medium"
+                aria-label="Main navigation"
+            >
+                <button id="mainBtn" class="text-blue-600">🏠 Main</button>
+                <button id="myBtn" class="text-gray-600">📝 My Reports</button>
+                <button id="resolvedBtn" class="text-gray-600">
+                    ✅ Resolved
+                </button>
+                <button id="profileBtn" class="text-gray-600">
+                    👤 Profile
+                </button>
+            </nav>
+        </header>
+
+        <main class="max-w-3xl mx-auto mt-6 px-3">
+            <div id="feed" class="space-y-4" aria-live="polite"></div>
+
+            <div
+                id="profileCard"
+                class="hidden bg-white shadow rounded-lg p-5"
+                aria-hidden="true"
+            >
+                <h3 class="font-semibold text-lg border-b pb-2">👤 Profile</h3>
+                <div class="flex items-center mt-3">
+                    <img
+                        src="https://i.pravatar.cc/60"
+                        class="w-12 h-12 rounded-full"
+                        loading="lazy"
+                        alt="avatar"
+                    />
+                    <div class="ml-3">
+                        <p class="font-semibold" id="profileUser">you</p>
+                        <p class="text-xs text-gray-500" id="profileRole">
+                            User
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-4 grid grid-cols-3 text-center text-sm">
+                    <div>
+                        <p class="font-semibold" id="statTotal">0</p>
+                        <p class="text-gray-500">Total</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold" id="statPublic">0</p>
+                        <p class="text-gray-500">Public</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold" id="statPersonal">0</p>
+                        <p class="text-gray-500">Personal</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <button
+            id="openFormBtn"
+            class="fixed bottom-6 right-6 bg-blue-600 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg text-2xl hidden"
+            aria-label="Open report form"
+        >
+            ＋
+        </button>
+
+        <!-- Report Modal -->
+        <div
+            id="modal"
+            class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="reportTitle"
+        >
+            <div
+                class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+            >
+                <form
+                    id="reportForm"
+                    class="bg-white p-6 rounded-xl shadow-lg w-full max-w-md"
+                    autocomplete="off"
+                >
+                    <h3 id="reportTitle" class="text-lg font-semibold">
+                        Report an Issue
+                    </h3>
+
+                    <label for="issueText" class="sr-only"
+                        >Describe the issue</label
+                    >
+                    <textarea
+                        id="issueText"
+                        placeholder="Describe the issue..."
+                        rows="3"
+                        class="mt-3 w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    ></textarea>
+
+                    <div class="flex gap-2 mt-3">
+                        <select
+                            id="issueCategory"
+                            class="flex-1 border rounded px-2 py-2 text-sm"
+                            aria-label="Category"
+                        >
+                            <option>Roads</option>
+                            <option>Electricity</option>
+                            <option>Water</option>
+                            <option>Sanitation</option>
+                            <option>Traffic</option>
+                        </select>
+
+                        <select
+                            id="visibility"
+                            class="flex-1 border rounded px-2 py-2 text-sm"
+                            aria-label="Visibility"
+                        >
+                            <option value="public">🌍 Public</option>
+                            <option value="personal">🔒 Personal</option>
+                        </select>
+                    </div>
+
+                    <div class="mt-4 flex justify-end gap-2">
+                        <button
+                            type="button"
+                            id="cancelBtn"
+                            class="px-4 py-2 rounded bg-gray-200"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            class="px-4 py-2 rounded bg-blue-600 text-white"
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- load JS from /static so path is stable on other devices -->
+        <script src="/static/app.js"></script>
+    </body>
+</html>

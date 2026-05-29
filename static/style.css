@@ -1,0 +1,16 @@
+/* static/style.css - optional tiny tweaks */
+html,
+body {
+    height: 100%;
+}
+
+/* ensure modals are displayed flex on desktop/mobile */
+#loginModal[style],
+#modal[style] {
+    /* If script uses style.display, keep behavior. */
+}
+
+#loginModal.hidden,
+#modal.hidden {
+    display: none !important;
+}
