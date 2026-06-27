@@ -47,7 +47,7 @@ python server.py
 ```http
 GET /issues
 GET /issues?view=main
-GET /issues?view=my&username=Akshay
+GET /issues?view=my&username='Username'
 GET /issues?view=resolved
 GET /issues/{issue_id}
 ```
@@ -59,7 +59,7 @@ POST /issues
 Content-Type: application/json
 
 {
-  "user": "Akshay",
+  "user": "Amit",
   "text": "Street light broken",
   "category": "Utilities",
   "visibility": "public"
